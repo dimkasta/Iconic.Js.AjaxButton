@@ -21,9 +21,10 @@ class IconicJsAjaxButton
     public icon;
     public text;
     public appendToUrl: string;
+    public promptText: string;
 
 
-    constructor(element, url, defaultIcon, defaultBackground, defaultText, trueIcon, trueBackground, trueText, falseIcon, falseBackground, falseText, loadingIcon, attentionIcon, attentionBackground, messageSelector) {
+    constructor(element, url, defaultIcon, defaultBackground, defaultText, trueIcon, trueBackground, trueText, falseIcon, falseBackground, falseText, loadingIcon, attentionIcon, attentionBackground, messageSelector, promptText) {
         this.element = element;
 
         this.url = url;
@@ -141,6 +142,11 @@ class IconicJsAjaxButton
         else
         {
             this.attentionBackground = "btn-default"
+        }
+
+        if(promptText)
+        {
+            this.promptText = promptText;
         }
     }
 

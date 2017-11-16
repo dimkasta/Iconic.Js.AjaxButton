@@ -1,5 +1,5 @@
 var IconicJsAjaxButton = (function () {
-    function IconicJsAjaxButton(element, url, defaultIcon, defaultBackground, defaultText, trueIcon, trueBackground, trueText, falseIcon, falseBackground, falseText, loadingIcon, attentionIcon, attentionBackground, messageSelector) {
+    function IconicJsAjaxButton(element, url, defaultIcon, defaultBackground, defaultText, trueIcon, trueBackground, trueText, falseIcon, falseBackground, falseText, loadingIcon, attentionIcon, attentionBackground, messageSelector, promptText) {
         this.loadingAnimation = "spin";
         this.reset = function () {
             this.element.removeClass(this.trueBackground);
@@ -133,6 +133,9 @@ var IconicJsAjaxButton = (function () {
         else {
             this.attentionBackground = "btn-default";
         }
+        if (promptText) {
+            this.promptText = promptText;
+        }
     }
     return IconicJsAjaxButton;
 }());
@@ -141,8 +144,9 @@ $.fn.ajaxButton = function () {
         var element = $(this);
         var url = element.data("url");
         if (url) {
-            var button = new IconicJsAjaxButton(element, element.data("url"), element.data("default-icon"), element.data("default-background"), element.data("default-text"), element.data("true-icon"), element.data("true-background"), element.data("true-text"), element.data("false-icon"), element.data("false-background"), element.data("false-text"), element.data("loading-icon"), element.data("attention-icon"), element.data("attention-background"), element.data("message-container"));
-            element.on("click", function () {
+            var button = new IconicJsAjaxButton(element, element.data("url"), element.data("default-icon"), element.data("default-background"), element.data("default-text"), element.data("true-icon"), element.data("true-background"), element.data("true-text"), element.data("false-icon"), element.data("false-background"), element.data("false-text"), element.data("loading-icon"), element.data("attention-icon"), element.data("attention-background"), element.data("message-container"), element.data("prompt-text"));
+            element.on("click", function (ev) {
+                ev.preventDefault();
                 button.startAnimation();
                 button.reset();
                 var xhrRequest = $.get(button.url, function (data, status, xhr) {
