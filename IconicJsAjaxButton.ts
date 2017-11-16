@@ -4,10 +4,13 @@ class IconicJsAjaxButton
     public url: string;
     public defaultIcon: string;
     public defaultBackground: string;
+    public defaultText: string;
     public trueIcon: string;
     public trueBackground: string;
+    public trueText: string;
     public falseIcon: string;
     public falseBackground: string;
+    public falseText: string;
     public loadingIcon: string;
     public loadingAnimation: string = "spin";
     public attentionIcon: string;
@@ -16,9 +19,11 @@ class IconicJsAjaxButton
     public messageSelector:string;
     public element;
     public icon;
+    public text;
+    public appendToUrl: string;
 
 
-    constructor(element, url, defaultIcon, defaultBackground, trueIcon, trueBackground, falseIcon, falseBackground, loadingIcon, attentionIcon, attentionBackground, messageSelector) {
+    constructor(element, url, defaultIcon, defaultBackground, defaultText, trueIcon, trueBackground, trueText, falseIcon, falseBackground, falseText, loadingIcon, attentionIcon, attentionBackground, messageSelector) {
         this.element = element;
 
         this.url = url;
@@ -39,6 +44,15 @@ class IconicJsAjaxButton
         else
         {
             this.defaultBackground = "btn-default"
+        }
+
+        if(defaultText)
+        {
+            this.defaultText = defaultText;
+            this.text = $("<span/>");
+            this.text.text(this.defaultText);
+            this.element.empty();
+            this.text.appendTo(this.element);
         }
 
         this.icon = $("<i/>").addClass("fa " + this.defaultIcon);
@@ -74,6 +88,11 @@ class IconicJsAjaxButton
             this.trueBackground = "btn-default"
         }
 
+        if(trueText)
+        {
+            this.trueText = trueText;
+        }
+
         if(falseIcon)
         {
             this.falseIcon = falseIcon;
@@ -90,6 +109,11 @@ class IconicJsAjaxButton
         else
         {
             this.falseBackground = "btn-default"
+        }
+
+        if(falseText)
+        {
+            this.falseText = falseText;
         }
 
         if(loadingIcon)
@@ -129,11 +153,18 @@ class IconicJsAjaxButton
         this.icon.removeClass(this.trueIcon);
         this.icon.removeClass(this.falseIcon);
         this.icon.removeClass(this.attentionIcon);
-        // this.icon.removeClass("text-success");
-        // this.icon.removeClass("text-danger");
 
         this.element.addClass(this.defaultBackground);
         this.icon.addClass(this.defaultIcon);
+        this.setText(this.defaultText);
+    }
+
+    setText = function(text)
+    {
+        if(this.text)
+        {
+            this.text.text(text);
+        }
     }
 
     startAnimation = function() {
@@ -154,6 +185,7 @@ class IconicJsAjaxButton
         this.newMessage();
         this.messageElement.addClass("alert-success");
         this.element.addClass(this.trueBackground);
+        this.setText(this.trueText);
     }
 
     showFalse = function() {
@@ -162,6 +194,7 @@ class IconicJsAjaxButton
         this.newMessage();
         this.messageElement.addClass("alert-success");
         this.element.addClass(this.falseBackground);
+        this.setText(this.falseText);
     }
 
     showAttention = function() {

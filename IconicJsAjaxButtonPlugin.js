@@ -4,7 +4,7 @@ $.fn.ajaxButton = function() {
         var element = $(this);
         var url = element.data("url");
         if(url) {
-            var button = new IconicJsAjaxButton(element, element.data("url"), element.data("default-icon"), element.data("default-background"), element.data("true-icon"), element.data("true-background"), element.data("false-icon"), element.data("false-background"), element.data("loading-icon"), element.data("attention-icon"), element.data("attention-background"), element.data("message-container"));
+            var button = new IconicJsAjaxButton(element, element.data("url"), element.data("default-icon"), element.data("default-background"), element.data("default-text"), element.data("true-icon"), element.data("true-background"), element.data("true-text"), element.data("false-icon"), element.data("false-background"), element.data("false-text"), element.data("loading-icon"), element.data("attention-icon"), element.data("attention-background"), element.data("message-container"));
 
             element.on("click", function () {
                 button.startAnimation();

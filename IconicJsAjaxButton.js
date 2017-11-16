@@ -1,5 +1,5 @@
 var IconicJsAjaxButton = (function () {
-    function IconicJsAjaxButton(element, url, defaultIcon, defaultBackground, trueIcon, trueBackground, falseIcon, falseBackground, loadingIcon, attentionIcon, attentionBackground, messageSelector) {
+    function IconicJsAjaxButton(element, url, defaultIcon, defaultBackground, defaultText, trueIcon, trueBackground, trueText, falseIcon, falseBackground, falseText, loadingIcon, attentionIcon, attentionBackground, messageSelector) {
         this.loadingAnimation = "spin";
         this.reset = function () {
             this.element.removeClass(this.trueBackground);
@@ -10,6 +10,12 @@ var IconicJsAjaxButton = (function () {
             this.icon.removeClass(this.attentionIcon);
             this.element.addClass(this.defaultBackground);
             this.icon.addClass(this.defaultIcon);
+            this.setText(this.defaultText);
+        };
+        this.setText = function (text) {
+            if (this.text) {
+                this.text.text(text);
+            }
         };
         this.startAnimation = function () {
             this.icon.removeClass(this.defaultIcon);
@@ -26,12 +32,14 @@ var IconicJsAjaxButton = (function () {
             this.newMessage();
             this.messageElement.addClass("alert-success");
             this.element.addClass(this.trueBackground);
+            this.setText(this.trueText);
         };
         this.showFalse = function () {
             this.icon.addClass(this.falseIcon);
             this.newMessage();
             this.messageElement.addClass("alert-success");
             this.element.addClass(this.falseBackground);
+            this.setText(this.falseText);
         };
         this.showAttention = function () {
             this.icon.addClass(this.attentionIcon);
@@ -61,6 +69,13 @@ var IconicJsAjaxButton = (function () {
         else {
             this.defaultBackground = "btn-default";
         }
+        if (defaultText) {
+            this.defaultText = defaultText;
+            this.text = $("<span/>");
+            this.text.text(this.defaultText);
+            this.element.empty();
+            this.text.appendTo(this.element);
+        }
         this.icon = $("<i/>").addClass("fa " + this.defaultIcon);
         this.icon.appendTo(this.element);
         this.element.addClass(this.defaultBackground);
@@ -82,6 +97,9 @@ var IconicJsAjaxButton = (function () {
         else {
             this.trueBackground = "btn-default";
         }
+        if (trueText) {
+            this.trueText = trueText;
+        }
         if (falseIcon) {
             this.falseIcon = falseIcon;
         }
@@ -93,6 +111,9 @@ var IconicJsAjaxButton = (function () {
         }
         else {
             this.falseBackground = "btn-default";
+        }
+        if (falseText) {
+            this.falseText = falseText;
         }
         if (loadingIcon) {
             this.loadingIcon = loadingIcon;
@@ -120,7 +141,7 @@ $.fn.ajaxButton = function () {
         var element = $(this);
         var url = element.data("url");
         if (url) {
-            var button = new IconicJsAjaxButton(element, element.data("url"), element.data("default-icon"), element.data("default-background"), element.data("true-icon"), element.data("true-background"), element.data("false-icon"), element.data("false-background"), element.data("loading-icon"), element.data("attention-icon"), element.data("attention-background"), element.data("message-container"));
+            var button = new IconicJsAjaxButton(element, element.data("url"), element.data("default-icon"), element.data("default-background"), element.data("default-text"), element.data("true-icon"), element.data("true-background"), element.data("true-text"), element.data("false-icon"), element.data("false-background"), element.data("false-text"), element.data("loading-icon"), element.data("attention-icon"), element.data("attention-background"), element.data("message-container"));
             element.on("click", function () {
                 button.startAnimation();
                 button.reset();
@@ -154,3 +175,4 @@ $.fn.ajaxButton = function () {
 $(function () {
     $(".ajax-button").ajaxButton();
 });
+//# sourceMappingURL=IconicJsAjaxButton.js.map
